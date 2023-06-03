@@ -35,7 +35,7 @@ def floatingNodes():
 
 PhysGr=g2o.get_physical_groups_map(gmsh.model)
 
-ops.model("basicBuilder","-ndm",3,"-ndf",4) #inizializzazione di opensees
+ops.model("basicBuilder","-ndm",3,"-ndf",4)  
 
 matTag =  1
 E = 210e9 #Pa
@@ -94,7 +94,7 @@ for i in range(0,LNT):
 nodeNum = 0
 
 nodeEl = []
-nodeVec = []  # vettore corrispondente agli elementi
+nodeVec = []  
 mem = []
 
 x = 0
@@ -114,7 +114,7 @@ nodeVecU = np.unique(np.array(nodeVec, dtype=int).reshape(-1))
 np.savetxt('Noderecord3D.txt',nodeVecU)
 nodeNum = np.array(nodeEl)
 nodeNumU= np.unique(np.array(nodeEl, dtype=int).reshape(-1))
-np.savetxt('Noderecord4D.txt',nodeNumU) #In questo file ci sono i punti a 4 dimensioni
+np.savetxt('Noderecord4D.txt',nodeNumU)
 xCoord = 0
 yCoord = 0
 zCoord = 0
@@ -150,8 +150,8 @@ n.close()
 g2o.get_physical_groups_map(gmsh.model) 
 TagPh = PhysGr['Top'][1]                                            
 DimPh = PhysGr['Top'][0]
-entities_top=gmsh.model.getEntitiesForPhysicalGroup(DimPh,TagPh) # riportare dim e tag della superficie i cui i punti sono di interesse
-surfTags = gmsh.model.mesh.getElements(DimPh, entities_top[0]) # punti della ph ent selezionata
+entities_top=gmsh.model.getEntitiesForPhysicalGroup(DimPh,TagPh)  
+surfTags = gmsh.model.mesh.getElements(DimPh, entities_top[0])  
 
 
 k = 0
@@ -234,11 +234,11 @@ for j in surfNodeCornU:
         else:
            ops.fix(int(j),0,0,0,1)
 
-g2o.get_physical_groups_map(gmsh.model) #dictionary - numero tag e dimensione ph ent.
+g2o.get_physical_groups_map(gmsh.model)  
 TagPh = PhysGr['Down'][1]
 DimPh = PhysGr['Down'][0]
 entities_down=gmsh.model.getEntitiesForPhysicalGroup(DimPh,TagPh)
-surfTags = gmsh.model.mesh.getElements(DimPh, entities_down[0]) # punti della ph ent selezionata
+surfTags = gmsh.model.mesh.getElements(DimPh, entities_down[0])  
 entTagDown,elTagsDown,nodeTagsDown=gmsh.model.mesh.getElements(2, entities_down[0])
 
 surfNodeTags=[]
@@ -315,7 +315,7 @@ for j in surfNodeCornU:
         else:
            ops.fix(int(j),0,0,1,0)
 
-g2o.get_physical_groups_map(gmsh.model) #dictionary - numero tag e dimensione ph ent.
+g2o.get_physical_groups_map(gmsh.model)  
 TagPh = PhysGr['Solid'][1]
 DimPh = PhysGr['Solid'][0]
 entities_top=gmsh.model.getEntitiesForPhysicalGroup(DimPh,TagPh) 
@@ -337,7 +337,7 @@ for i in nodeTags[0]:
 LNT=len(nodeTagsVec)
 nodeNum2 = 0
 nodeEl2=[]
-nodeVec2=[] #vettore corrispondente agli elementi
+nodeVec2=[]  
 mem=[]
 for i in range(0,LNT):
     for j in range(8,20):
@@ -364,13 +364,13 @@ for nodeNum2 in nodeNumU2:
     yCoord2 =  gmsh.model.mesh.getNode(nodeNum2)[0][1]
     zCoord2 =  gmsh.model.mesh.getNode(nodeNum2)[0][2]
     Coord_l2=[round(xCoord2,2),round(yCoord2,2),round(zCoord2,2)]
-    ops.node(int(nodeNum2), *Coord_l2) #INVIA DATI                       
+    ops.node(int(nodeNum2), *Coord_l2)                       
 
-g2o.get_physical_groups_map(gmsh.model) #dictionary - numero tag e dimensione ph ent.
+g2o.get_physical_groups_map(gmsh.model) 
 TagPh = PhysGr['FixX'][1]
 DimPh = PhysGr['FixX'][0]
 entities_x=gmsh.model.getEntitiesForPhysicalGroup(DimPh,TagPh)
-surfTags = gmsh.model.mesh.getElements(DimPh, entities_x[0]) # punti della ph ent selezionata
+surfTags = gmsh.model.mesh.getElements(DimPh, entities_x[0])  
 entTagDown,elTagsDown,nodeTagsDown=gmsh.model.mesh.getElements(2, entities_x[0])
 
 xminSurf,yminSurf,zminSurf,xmaxSurf,ymaxSurf,zmaxSurf=gmsh.model.get_bounding_box(2,entities_x[0])
@@ -418,11 +418,11 @@ for i in vecEdgeU:
     ops.fix(int(i),1,0,0)
 
 
-g2o.get_physical_groups_map(gmsh.model) #dictionary - numero tag e dimensione ph ent.
+g2o.get_physical_groups_map(gmsh.model)  
 TagPh = PhysGr['FixY'][1]
 DimPh = PhysGr['FixY'][0]
 entities_y=gmsh.model.getEntitiesForPhysicalGroup(DimPh,TagPh)
-surfTags = gmsh.model.mesh.getElements(DimPh, entities_y[0]) # punti della ph ent selezionata
+surfTags = gmsh.model.mesh.getElements(DimPh, entities_y[0])  
 entTagDown,elTagsDown,nodeTagsDown=gmsh.model.mesh.getElements(2, entities_y[0])
 
 NodeListY=[]
@@ -468,11 +468,11 @@ vecEdgeU = np.unique(vecEdgeA)
 for i in vecEdgeU:
     ops.fix(int(i),0,1,0)
     
-g2o.get_physical_groups_map(gmsh.model) #dictionary - numero tag e dimensione ph ent.
+g2o.get_physical_groups_map(gmsh.model)  
 TagPh = PhysGr['Down'][1]
 DimPh = PhysGr['Down'][0]
 entities_down=gmsh.model.getEntitiesForPhysicalGroup(DimPh,TagPh)
-surfTags = gmsh.model.mesh.getElements(DimPh, entities_down[0]) # punti della ph ent selezionata
+surfTags = gmsh.model.mesh.getElements(DimPh, entities_down[0]) 
 entTagDown,elTagsDown,nodeTagsDown=gmsh.model.mesh.getElements(2, entities_down[0])
 
 xminSurf,yminSurf,zminSurf,xmaxSurf,ymaxSurf,zmaxSurf=gmsh.model.get_bounding_box(2,entities_down[0])
@@ -547,18 +547,18 @@ for i in vecEdgeU:
     else:
         ops.fix(int(i), 0, 0, 1)                                
        
-ops.model("basicBuilder","-ndm",3,"-ndf",4) #inizializzazione di opensees
+ops.model("basicBuilder","-ndm",3,"-ndf",4)  
 
-g2o.get_physical_groups_map(gmsh.model) #dictionary - numero tag e dimensione ph ent.
+g2o.get_physical_groups_map(gmsh.model)  
 TagPh = PhysGr['Solid'][1]
 DimPh = PhysGr['Solid'][0]
 entities_Vol=gmsh.model.getEntitiesForPhysicalGroup(DimPh,TagPh)
-VolTags = gmsh.model.mesh.getElements(DimPh, entities_Vol[0]) # punti della ph ent selezionata
+VolTags = gmsh.model.mesh.getElements(DimPh, entities_Vol[0])  
 entTagVol,elTagsVol,nodeTagsVol=gmsh.model.mesh.getElements(DimPh, entities_Vol[0])
 
 f=open("cubottoGID.msh","w")
 el=open("elementInfo.dat","w")
-f.write("MESH dimension 3 ElemType Hexahedra Nnode 20\n") #camuffato come elemento a 8 nodi.
+f.write("MESH dimension 3 ElemType Hexahedra Nnode 20\n")  
 f.write("Coordinates\n")
 f.write("#node_number   coord_x   coord_y   coord_z\n")
 
@@ -569,7 +569,7 @@ f.write("end coordinates\n")
 f.write("Elements\n")
 
 f.write("# element   nodo1  nodo2   nodo3   nodo4   nodo5   nodo6   nodo7   nodo8   nodo9   nodo10   nodo11   nodo12   nodo13   nodo14   nodo15   nodo16   nodo17   nodo18   nodo19   nodo20\n")
-#f.write("# element   nodo1  nodo2   nodo3   nodo4   nodo5   nodo6   nodo7   nodo8\n")
+ 
 
 eleTag=[]
 eleNodes = []
@@ -639,7 +639,7 @@ for i in range(0,LET):
     connList[elem]=(nodes_l)
     f.write(f"{elem} {nodo1} {nodo2} {nodo3} {nodo4} {nodo5} {nodo6} {nodo7} {nodo8} {nodo9} {nodo10} {nodo11} {nodo12} {nodo17} {nodo18} {nodo19} {nodo20} {nodo13} {nodo14} {nodo15} {nodo16} \n")
     el.write(f"{elem} {nodo1} {nodo2} {nodo3} {nodo4} {nodo5} {nodo6} {nodo7} {nodo8} {nodo9} {nodo10} {nodo11} {nodo12} {nodo17} {nodo18} {nodo19} {nodo20} {nodo13} {nodo14} {nodo15} {nodo16}\n")
-    #Per GID: la numerazione dell'elemento a 20 nodi è differente rispetto a quella per l'elemento UP - al massimo plottare solo i nodi agli angoli.
+     
     ops.element('20_8_BrickUP',elem,*nodes_l, 1, 2.2e6, 1, 1.0, 1.0, 1.0, 0.0, 0.0,-20)
 
     
