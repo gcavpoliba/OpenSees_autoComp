@@ -1,4 +1,6 @@
 ###This is a source code with someome can create his own model with the 20_8_BrickUP element starting from GMSH modeler#####
+### WARNING: the aim of the code is the code procedure and algorithms that could be taken singularly from the entire code #####
+### WARNING: the model in example can not be taken as physical theory example ########
 import os
 import openseespy.opensees as ops
 import gmsh2opensees as g2o
