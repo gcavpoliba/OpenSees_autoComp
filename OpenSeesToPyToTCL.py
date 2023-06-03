@@ -1,4 +1,5 @@
-
+#PYTHON AND TCL FORMAT CONVERTER
+#WARNING: this code works in the conditions and package assigned but its conceptual design is for every mesh imported... still working on, but good for practice
 py = open("cubotto_exe.py","w")
 py.write('import os\n\
 import openseespy.opensees as ops\n\
@@ -1065,8 +1066,6 @@ startT = tt.time()
 tcl=open('cubotto.tcl','a')
 tcl.write('set startT [clock seconds]\n')
 ##################################################### ANALYZE ###################################################
-ops.analyze(1,1)
-print('GRAVITY LOAD - ELASTIC - OK')
 tcl = open('cubotto.tcl', 'a')
 tcl.write('analyze 1 1\n')
 tcl.close()
@@ -1576,40 +1575,3 @@ puts "Finished with dynamic analysis..."\n\
 puts "Analysis execution time: [expr $endT-$startT] seconds"\n\
 wipe')
 tcl.close()
-
-# perform analysis with timestep reduction loop
-ok = ops.analyze(nSteps, dT)
-
-# if analysis fails, reduce timestep and continue with analysis
-if ok != 0:
-    print("did not converge, reducing time step")
-    curTime = ops.getTime()
-    mTime = curTime
-    print("curTime: ", curTime)
-    curStep = curTime / dT
-    print("curStep: ", curStep)
-    rStep = (nSteps - curStep) * 2.0
-    remStep = int((nSteps - curStep) * 2.0)
-    print("remStep: ", remStep)
-    dT = dT / 2.0
-    print("dT: ", dT)
-
-    ok = ops.analyze(remStep, dT)
-    # if analysis fails again, reduce timestep and continue with analysis
-    if ok != 0:
-        print("did not converge, reducing time step")
-        curTime = ops.getTime()
-        print("curTime: ", curTime)
-        curStep = (curTime - mTime) / dT
-        print("curStep: ", curStep)
-        remStep = int((rStep - curStep) * 2.0)
-        print("remStep: ", remStep)
-        dT = dT / 2.0
-        print("dT: ", dT)
-
-        ok = ops.analyze(remStep, dT)
-
-endT = tt.time()
-print("Finished with dynamic analysis...")
-print("Analysis execution time: ", (endT - startT))
-ops.wipe()
