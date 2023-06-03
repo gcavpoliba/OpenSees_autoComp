@@ -674,7 +674,7 @@ for i in NodeListDownU:
 
 ops.equalDOF(458, dashX,1)
 
-colArea =   100 # l'elemento cubico ha lato 2
+colArea =   100  
 rockVS =       700.0
 rockDen  =     2.5
 dashpotCoeff = rockVS*rockDen*colArea
@@ -684,11 +684,11 @@ nElemT =eleTag[Len-1]
 
 ops.element('zeroLength', int(nElemT+1), int(dashF), int(dashX), '-mat', 2, '-dir', 1)
 
-g2o.get_physical_groups_map(gmsh.model) #dictionary - numero tag e dimensione ph ent.
+g2o.get_physical_groups_map(gmsh.model)  
 TagPh = PhysGr['Solid'][1]
 DimPh = PhysGr['Solid'][0]
-entities_top=gmsh.model.getEntitiesForPhysicalGroup(DimPh,TagPh) # riportare dim e tag della superficie i cui i punti sono di interesse
-entVol,VolTag,nodeTags = gmsh.model.mesh.getElements(DimPh, entities_top[0]) # punti della ph ent selezionata
+entities_top=gmsh.model.getEntitiesForPhysicalGroup(DimPh,TagPh)  
+entVol,VolTag,nodeTags = gmsh.model.mesh.getElements(DimPh, entities_top[0])  
 nElemT = ops.getNumElements()
 
 load_nodeList=np.loadtxt('nodesInfo.txt')
@@ -812,7 +812,7 @@ for i in ops.getEleTags():
     eleTags.append(int(i))
 
 LT2=len(eleTags)
-for j in range(0,LT2-1): #ultimo elemento escluso perchè zeroLenght
+for j in range(0,LT2-1):  
     i = eleTags[j]
     ops.parameter(int(tag), 'element', i,'hPerm')
     ops.parameter(int(tag+1), 'element', i,'vPerm')
@@ -825,7 +825,7 @@ ops.timeSeries('Constant',1)
 ops.pattern('Plain',1,1,'-fact',1.0)
 ops.reactions()
 
-g2o.get_physical_groups_map(gmsh.model) #dictionary - numero tag e dimensione ph ent.
+g2o.get_physical_groups_map(gmsh.model)  
 TagPh = PhysGr['FixX'][1]
 DimPh = PhysGr['FixX'][0]
 entities_x=gmsh.model.getEntitiesForPhysicalGroup(DimPh,TagPh)
