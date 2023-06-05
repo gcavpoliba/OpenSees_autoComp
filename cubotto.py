@@ -1,4 +1,4 @@
-# [UPDATE] 05 06 2023 - some minor bugs due to the copy paste and editing ####
+# [UPDATE] 05 06 2023 - some minor bug due to the copy paste and editing ####
 ###This is a source code with someome can create his own model with the 20_8_BrickUP element starting from GMSH modeler#####
 ### WARNING: the aim of the code is the code procedure and algorithms that could be taken singularly from the entire code #####
 ### WARNING: the model in example can not be taken as physical theory example ########
